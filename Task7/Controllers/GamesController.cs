@@ -2,7 +2,7 @@
 
 namespace Task7.Controllers
 {
-    public class GameController : Controller
+    public class GamesController : Controller
     {
         public IActionResult Index()
         {

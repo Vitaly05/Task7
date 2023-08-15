@@ -1,10 +1,18 @@
 {
   "version": "1.0",
   "defaultProvider": "cdnjs",
-  "libraries": [
-    {
-      "library": "uikit@3.16.24",
-      "destination": "wwwroot/lib/uikit/"
-    }
-  ]
+    "libraries": [
+        {
+            "library": "uikit@3.16.24",
+            "destination": "wwwroot/lib/uikit/"
+        },
+        {
+            "provider": "unpkg",
+            "library": "@microsoft/signalr@latest",
+            "destination": "wwwroot/lib/signalr/",
+            "files": [
+                "dist/browser/signalr.min.js"
+            ]
+        }
+    ]
 }

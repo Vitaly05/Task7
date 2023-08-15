@@ -1,6 +1,10 @@
+using Task7.Hubs;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -12,6 +16,11 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Game}/{action=Index}");
+    pattern: "{controller=Games}/{action=Index}");
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapHub<LobbyHub>("/lobby");
+});
 
 app.Run();
