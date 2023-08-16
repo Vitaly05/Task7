@@ -4,6 +4,10 @@
 
 <div class="uk-heading-medium uk-text-center">Welcome to the games lobby</div>
 
+<div>
+    <input class="uk-input uk-text-center" id="nickname-input" type="text" placeholder="Nickname" />
+</div>
+
 <div class="d-flex gap-2 justify-content-between mt-4">
     <button class="uk-button" uk-toggle="target: #new-game-modal">New game</button>
     <button class="uk-button" uk-toggle="target: #join-game-modal">Join game</button>
@@ -13,19 +17,61 @@
     <div class="uk-modal-dialog uk-margin-auto-vertical uk-modal-body">
         <h2 class="uk-modal-title uk-text-center">Select the game</h2>
         <div class="d-flex flex-column flex-sm-row gap-2 justify-content-between">
-            <button class="uk-button">Tic Tac Toe</button>
-            <button class="uk-button">Four In A Row</button>
+            <button class="uk-button" id="tic-tac-toe-button">Tic Tac Toe</button>
+            <button class="uk-button" id="four-in-a-row-button">Four In A Row</button>
         </div>
         <button class="uk-modal-close-full" uk-close></button>
     </div>
 </div>
 
 <div id="join-game-modal" uk-modal>
-    <div class="uk-modal-dialog uk-margin-auto-vertical uk-modal-body">
-        <h2 class="uk-modal-title uk-text-center">Select the game session</h2>
-        <div id="game-sessions-panel">
+    <div class="uk-modal-dialog uk-margin-auto-vertical">
+        <div class="uk-modal-header">
+            <h2 class="uk-modal-title uk-text-center">Select the game session</h2>
+            <button class="uk-modal-close-full" uk-close></button>
+        </div>
+        <div class="uk-modal-body" uk-overflow-auto>
+            <div class="d-flex justify-content-center">
+                <div id="spinner" uk-spinner></div>
+            </div>
+            <div id="game-sessions-panel">
+                <table class="uk-table uk-table-hover uk-table-divider uk-table-middle">
+                    <thead>
+                        <tr>
+                            <th>Creator</th>
+                            <th>Game</th>
+                            <th class="uk-table-shrink"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="sessions-table-body"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
+<div id="wait-game-modal" uk-modal>
+    <div class="uk-modal-dialog uk-margin-auto-vertical uk-modal-body">
+        <h2 class="uk-modal-title uk-text-center">Waiting for the second palyer</h2>
+        <div class="d-flex justify-content-center">
+            <div uk-spinner></div>
         </div>
         <button class="uk-modal-close-full" uk-close></button>
     </div>
 </div>
+
+@section Scripts 
+{
+    <script src="~/js/lobby.js"></script>
+}
+
+@section Templates
+{
+    <template id="session-template">
+        <tr>
+            <td id="creator"></td>
+            <td id="game"></td>
+            <td id="join-button"><button class="uk-button">Join</button></td>
+        </tr>
+    </template>
+}

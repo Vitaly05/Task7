@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/lib/uikit/css/uikit.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    @await RenderSectionAsync("Templates", required: false)
 </head>
 <body>
     <div class="container min-vh-100 d-flex flex-column align-items-center justify-content-center">
