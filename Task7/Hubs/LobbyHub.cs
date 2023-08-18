@@ -19,6 +19,12 @@ namespace Task7.Hubs
             await Clients.Others.SendAsync("NewSession", session);
         }
 
+        public override async Task OnDisconnectedAsync(Exception exception)
+        {
+            await StopSession();
+            await base.OnDisconnectedAsync(exception);
+        }
+
         public async Task StopSession()
         {
             Session currentSession = sessions.FirstOrDefault(s => s.CreatorId == Context.ConnectionId);
