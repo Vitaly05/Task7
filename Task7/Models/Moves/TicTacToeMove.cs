@@ -1,4 +1,4 @@
-﻿namespace Task7.Models
+﻿namespace Task7.Models.Moves
 {
     public class TicTacToeMove
     {

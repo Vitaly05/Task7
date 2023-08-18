@@ -1,28 +1,27 @@
-﻿using System.Numerics;
+﻿using Task7.Models.Moves;
 
-namespace Task7.Models
+namespace Task7.Models.Games
 {
-    public class TicTacToeGame
+    public class TicTacToeGame : BaseGameModel<TicTacToeMove>
     {
-        public string Group { get; set; } = "";
-
-        public List<Player> Players { get; set; } = new List<Player>();
-
         public int[,] Board { get; set; } = new int[3, 3];
 
-        public bool IsDraw()
+        public override void MakeMove(TicTacToeMove move, int playerNumber) => 
+            Board[move.Row, move.Column] = playerNumber;
+
+        public override bool IsDraw()
         {
             foreach (var element in Board)
                 if (element == 0) return false;
             return true;
         }
 
-        public Player GetWinner()
+        public override Player GetWinner()
         {
             foreach (var player in Players)
             {
-                if (checkVerticals(player.Number) || 
-                    checkHorizontals(player.Number) || 
+                if (checkVerticals(player.Number) ||
+                    checkHorizontals(player.Number) ||
                     checkDiagonals(player.Number))
                 {
                     return player;
