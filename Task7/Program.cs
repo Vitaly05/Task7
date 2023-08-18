@@ -21,6 +21,7 @@ app.MapControllerRoute(
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapHub<LobbyHub>("/lobby");
+    endpoints.MapHub<TicTacToeHub>("/tictactoe");
 });
 
 app.Run();

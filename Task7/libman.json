@@ -1,18 +1,25 @@
 {
   "version": "1.0",
   "defaultProvider": "cdnjs",
-    "libraries": [
-        {
-            "library": "uikit@3.16.24",
-            "destination": "wwwroot/lib/uikit/"
-        },
-        {
-            "provider": "unpkg",
-            "library": "@microsoft/signalr@latest",
-            "destination": "wwwroot/lib/signalr/",
-            "files": [
-                "dist/browser/signalr.min.js"
-            ]
-        }
-    ]
+  "libraries": [
+    {
+      "library": "uikit@3.16.24",
+      "destination": "wwwroot/lib/uikit/"
+    },
+    {
+      "provider": "unpkg",
+      "library": "@microsoft/signalr@latest",
+      "destination": "wwwroot/lib/signalr/",
+      "files": [
+        "dist/browser/signalr.min.js"
+      ]
+    },
+    {
+      "library": "jqueryui@1.13.2",
+      "destination": "wwwroot/lib/jqueryui/",
+      "files": [
+        "jquery-ui.min.js"
+      ]
+    }
+  ]
 }

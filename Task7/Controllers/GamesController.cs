@@ -8,5 +8,10 @@ namespace Task7.Controllers
         {
             return View();
         }
+
+        public IActionResult TicTacToe()
+        {
+            return View();
+        }
     }
 }

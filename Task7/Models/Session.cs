@@ -4,7 +4,7 @@ namespace Task7.Models
 {
     public class Session
     {
-        public string Id { get; set; } = "";
+        public string CreatorId { get; set; } = "";
 
         public string Creator { get; set; } = "";
 
