@@ -13,5 +13,10 @@ namespace Task7.Controllers
         {
             return View();
         }
+
+        public IActionResult FourInARow()
+        {
+            return View();
+        }
     }
 }

@@ -1,0 +1,65 @@
+﻿@{
+    ViewData["Title"] = "Four In A Row";
+}
+
+<h2>Four In A Row</h2>
+
+<div id="four-in-a-row-board" class="m-0 m-sm-4 p-2 p-sm-4 gap-2 gap-sm-4">
+    <div data-row="0" data-column="0" class="cell empty"></div>
+    <div data-row="0" data-column="1" class="cell empty"></div>
+    <div data-row="0" data-column="2" class="cell empty"></div>
+    <div data-row="0" data-column="3" class="cell empty"></div>
+    <div data-row="0" data-column="4" class="cell empty"></div>
+    <div data-row="0" data-column="5" class="cell empty"></div>
+    <div data-row="0" data-column="6" class="cell empty"></div>
+
+    <div data-row="1" data-column="0" class="cell empty"></div>
+    <div data-row="1" data-column="1" class="cell empty"></div>
+    <div data-row="1" data-column="2" class="cell empty"></div>
+    <div data-row="1" data-column="3" class="cell empty"></div>
+    <div data-row="1" data-column="4" class="cell empty"></div>
+    <div data-row="1" data-column="5" class="cell empty"></div>
+    <div data-row="1" data-column="6" class="cell empty"></div>
+
+    <div data-row="2" data-column="0" class="cell empty"></div>
+    <div data-row="2" data-column="1" class="cell empty"></div>
+    <div data-row="2" data-column="2" class="cell empty"></div>
+    <div data-row="2" data-column="3" class="cell empty"></div>
+    <div data-row="2" data-column="4" class="cell empty"></div>
+    <div data-row="2" data-column="5" class="cell empty"></div>
+    <div data-row="2" data-column="6" class="cell empty"></div>
+
+    <div data-row="3" data-column="0" class="cell empty"></div>
+    <div data-row="3" data-column="1" class="cell empty"></div>
+    <div data-row="3" data-column="2" class="cell empty"></div>
+    <div data-row="3" data-column="3" class="cell empty"></div>
+    <div data-row="3" data-column="4" class="cell empty"></div>
+    <div data-row="3" data-column="5" class="cell empty"></div>
+    <div data-row="3" data-column="6" class="cell empty"></div>
+
+    <div data-row="4" data-column="0" class="cell empty"></div>
+    <div data-row="4" data-column="1" class="cell empty"></div>
+    <div data-row="4" data-column="2" class="cell empty"></div>
+    <div data-row="4" data-column="3" class="cell empty"></div>
+    <div data-row="4" data-column="4" class="cell empty"></div>
+    <div data-row="4" data-column="5" class="cell empty"></div>
+    <div data-row="4" data-column="6" class="cell empty"></div>
+
+    <div data-row="5" data-column="0" class="cell empty"></div>
+    <div data-row="5" data-column="1" class="cell empty"></div>
+    <div data-row="5" data-column="2" class="cell empty"></div>
+    <div data-row="5" data-column="3" class="cell empty"></div>
+    <div data-row="5" data-column="4" class="cell empty"></div>
+    <div data-row="5" data-column="5" class="cell empty"></div>
+    <div data-row="5" data-column="6" class="cell empty"></div>
+</div>
+
+<div uk-alert id="info-alert" class="d-flex flex-column flex-sm-row align-items-center justify-content-center gap-2">
+    <div uk-spinner id="spinner"></div>
+    <div id="info"></div>
+    <button id="lobby-button" class="uk-button">Back to the lobby</button>
+</div>
+
+@section Scripts {
+    <script src="~/js/fourInARow.js"></script>
+}

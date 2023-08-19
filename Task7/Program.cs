@@ -22,6 +22,7 @@ app.UseEndpoints(endpoints =>
 {
     endpoints.MapHub<LobbyHub>("/lobby");
     endpoints.MapHub<TicTacToeHub>("/tictactoe");
+    endpoints.MapHub<FourInARowHub>("/fourinarow");
 });
 
 app.Run();

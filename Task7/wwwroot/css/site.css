@@ -19,3 +19,34 @@
     height: 75px;
     padding: 8px;
 }
+
+#four-in-a-row-board {
+    background-color: blueviolet;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+}
+#four-in-a-row-board > div {
+    background-color: rgb(220, 220, 220);
+    border-radius: 50%;
+    width: 10vw;
+    height: 10vw;
+    max-width: 50px;
+    max-height: 50px;
+}
+#four-in-a-row-board > div.hover {
+    background-image: url('/img/arrow.png');
+    background-size: contain;
+    background-repeat: repeat-y;
+    animation: moveImage 4s linear infinite;
+}
+
+@keyframes moveImage {
+    0% {
+        background-position-y: 0;
+    }
+    100% {
+        background-position-y: 1000%;
+    }
+}
