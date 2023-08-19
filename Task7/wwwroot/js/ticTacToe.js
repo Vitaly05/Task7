@@ -1,94 +1,51 @@
 $(document).ready(function() {
-    const hubConnection = new signalR.HubConnectionBuilder().withUrl('/tictactoe').build()
+    url = '/tictactoe'
+    game = new TicTacToeGame()
+})
 
-    const playerImg = '<img src="/img/cross.png" alt="X" />'
-    const enemyImg = '<img src="/img/zero.png" alt="O" />'
-    
-    const playerColor = 'aqua'
-    const enemyColor = '#FF4500'
+class TicTacToeGame {
+    constructor() {
+        this.canMove = false
+        this.playerImg = '<img src="/img/cross.png" alt="X" />'
+        this.enemyImg = '<img src="/img/zero.png" alt="O" />'
+        this.playerColor = 'aqua'
+        this.enemyColor = '#FF4500'
+    }
 
-    let canMove = false
+    onEnemyMove(move) {
+        this.appendMove($(`#board > div[data-row="${move.row}"][data-column="${move.column}"]`), true)
+    }
 
-    hubConnection.on('EnemyName', function(enemyName) {
-        localStorage.setItem('enemyName', enemyName)
-    })
+    onCellClick(element) {
+        if (element.has('.move').length > 0) return false
+        element.find('.hover').remove()
+        this.appendMove(element)
+        return true
+    }
 
-    hubConnection.on('Move', function(move) {
-        $('#spinner').hide()
-        $('#info').text('Your move')
-        canMove = true
-        appendMove($(`#board > div[data-row="${move.row}"][data-column="${move.column}"]`), true)
-    })
-
-    hubConnection.on('Wait', function() {
-        $('#spinner').show()
-        $('#info').text(`Waiting for the "${localStorage.getItem('enemyName')}" move`)
-        canMove = false
-    })
-
-    hubConnection.on('Winner', function(winner) {
-        canMove = false
-        let message, alertClass
-        if (winner.name == localStorage.getItem('name')) {
-            message = 'You won!'
-            alertClass = 'uk-alert-success'
-        } else {
-            message = `"${winner.name}" won!`
-            alertClass = 'uk-alert-danger'
+    onCellMouseEnter(element) {
+        if (this.canMove && element.has('.move').length == 0) {
+            element.append($(this.playerImg).addClass('hover'))
         }
-        showResult(message, alertClass)
-    })
+    }
 
-    hubConnection.on('Draw', function() {
-        showResult('Draw!', 'uk-alert-warning')
-    })
+    onCellMouseLeave(element) {
+        element.find('.hover').remove()
+    }
 
-    $('.cell').click(function() {
-        if (!canMove || $(this).has('.move').length > 0) return
-        $(this).find('.hover').remove()
-        appendMove($(this))
-        hubConnection.invoke('MakeMove', localStorage.getItem('group'), getMoveData($(this)))
-        canMove = false
-    })
-
-    $('.cell').on('mouseenter', function() {
-        if (canMove && $(this).has('.move').length == 0) {
-            $(this).append($(playerImg).addClass('hover'))
-        }
-    })
-    $('.cell').on('mouseleave', function() {
-        $(this).find('.hover').remove()
-    })
-
-    $('#lobby-button').hide()
-
-    $('#lobby-button').click(function() {
-        window.location.href = '/'
-    })
-
-    hubConnection.start().then(function() {
-        hubConnection.invoke('InitializeGame', localStorage.getItem('group'), localStorage.getItem('name'))
-    })
-
-    function appendMove(to, isEnemy = false) {
-        const img = isEnemy ? enemyImg : playerImg
-        const color = isEnemy ? enemyColor : playerColor
+    appendMove(to, isEnemy = false) {
+        const img = isEnemy ? this.enemyImg : this.playerImg
+        const color = isEnemy ? this.enemyColor : this.playerColor
         to.append($(img).addClass('move'))
         to.animate({
             backgroundColor: color
         }, 500)
     }
 
-    function getMoveData(clickedCell) {
+    getMoveData(clickedCell) {
         return {
             row: clickedCell.data('row'),
             column: clickedCell.data('column')
         }
     }
-
-    function showResult(message, alertClass) {
-        $('#info-alert').addClass(alertClass)
-        $('#info').text(message)
-        $('#lobby-button').show()
-    }
-})
+}

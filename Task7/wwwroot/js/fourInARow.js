@@ -1,113 +1,68 @@
 $(document).ready(function() {
-    const hubConnection = new signalR.HubConnectionBuilder().withUrl('/fourinarow').build()
+    url = '/fourinarow'
+    game = new FourInARowGame()
+})
 
-    const ROWS = 6
-    
-    const emptyColor = 'rgb(220, 220, 220)'
-    const playerColor = '#32CD32'
-    const enemyColor = '#FF4500'
+class FourInARowGame {
+    constructor() {
+        this.canMove = false
+        this.ROWS = 6
+        this.playerColor = '#32CD32'
+        this.enemyColor = '#FF4500'
+    }
 
-    let canMove = false
+    onEnemyMove(move) {
+        const row = this.getRow(move.column)
+        this.appendMove($(`#four-in-a-row-board > div[data-row="${row}"][data-column="${move.column}"]`), true)
+    }
 
-    hubConnection.on('EnemyName', function(enemyName) {
-        localStorage.setItem('enemyName', enemyName)
-    })
+    onCellClick(element) {
+        const column = element.data('column')
+        const row = this.getRow(column)
+        if (row == undefined) return false
+        this.removeHoverClass(column)
+        this.appendMove($(`#four-in-a-row-board > div[data-row="${row}"][data-column="${column}"]`))
+        return true
+    }
 
-    hubConnection.on('Move', function(move) {
-        $('#spinner').hide()
-        $('#info').text('Your move')
-        canMove = true
-        const row = getRow(move.column)
-        appendMove($(`#four-in-a-row-board > div[data-row="${row}"][data-column="${move.column}"]`), true)
-    })
-
-    hubConnection.on('Wait', function() {
-        $('#spinner').show()
-        $('#info').text(`Waiting for the "${localStorage.getItem('enemyName')}" move`)
-        canMove = false
-    })
-
-    hubConnection.on('Winner', function(winner) {
-        canMove = false
-        let message, alertClass
-        if (winner.name == localStorage.getItem('name')) {
-            message = 'You won!'
-            alertClass = 'uk-alert-success'
-        } else {
-            message = `"${winner.name}" won!`
-            alertClass = 'uk-alert-danger'
-        }
-        showResult(message, alertClass)
-    })
-
-    hubConnection.on('Draw', function() {
-        showResult('Draw!', 'uk-alert-warning')
-    })
-
-    $('.cell').click(function() {
-        if (!canMove) return
-        const column = $(this).data('column')
-        const row = getRow(column)
-        if (row == undefined) return
-        removeHoverClass(column)
-        appendMove($(`#four-in-a-row-board > div[data-row="${row}"][data-column="${column}"]`))
-        hubConnection.invoke('MakeMove', localStorage.getItem('group'), getMoveData($(this)))
-        canMove = false
-    })
-
-    $('.cell').on('mouseenter', function() {
-        const column = $(this).data('column')
+    onCellMouseEnter(element) {
+        const column = element.data('column')
         $(`.cell[data-column="${column}"]`).each(function() {
-            if (canMove && $(this).hasClass('empty')) {
-                $(this).addClass('hover')
+            if (this.canMove && element.hasClass('empty')) {
+                element.addClass('hover')
             }
         })
-    })
-    $('.cell').on('mouseleave', function() {
-        removeHoverClass($(this).data('column'))
-    })
+    }
 
-    $('#lobby-button').hide()
+    onCellMouseLeave(element) {
+        this.removeHoverClass(element, element.data('column'))
+    }
 
-    $('#lobby-button').click(function() {
-        window.location.href = '/'
-    })
-
-    hubConnection.start().then(function() {
-        hubConnection.invoke('InitializeGame', localStorage.getItem('group'), localStorage.getItem('name'))
-    })
-
-    function getRow(column) {
-        for (let i = ROWS - 1; i >= 0; i--) {
+    getRow(column) {
+        for (let i = this.ROWS - 1; i >= 0; i--) {
             if ($(`#four-in-a-row-board > div[data-row="${i}"][data-column="${column}"]`).hasClass('empty')) {
                 return i
             }
         }
     }
 
-    function removeHoverClass(column) {
+    removeHoverClass(element, column) {
         $(`.cell[data-column="${column}"]`).each(function() {
-            $(this).removeClass('hover')
+            element.removeClass('hover')
         })
     }
 
-    function appendMove(to, isEnemy = false) {
-        const color = isEnemy ? enemyColor : playerColor
+    appendMove(to, isEnemy = false) {
+        const color = isEnemy ? this.enemyColor : this.playerColor
         to.removeClass('empty')
         to.animate({
             backgroundColor: color
         }, 500)
     }
 
-    function getMoveData(clickedCell) {
+    getMoveData(clickedCell) {
         return {
             column: clickedCell.data('column'),
         }
     }
-
-    function showResult(message, alertClass) {
-        $('#info-alert').addClass(alertClass)
-        $('#info').text(message)
-        $('#lobby-button').show()
-    }
-})
+}
