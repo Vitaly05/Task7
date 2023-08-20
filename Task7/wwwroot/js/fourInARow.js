@@ -27,15 +27,16 @@ class FourInARowGame {
 
     onCellMouseEnter(element) {
         const column = element.data('column')
+        const self = this
         $(`.cell[data-column="${column}"]`).each(function() {
-            if (this.canMove && element.hasClass('empty')) {
-                element.addClass('hover')
+            if (self.canMove && $(this).hasClass('empty')) {
+                $(this).addClass('hover')
             }
         })
     }
 
     onCellMouseLeave(element) {
-        this.removeHoverClass(element, element.data('column'))
+        this.removeHoverClass(element.data('column'))
     }
 
     getRow(column) {
@@ -46,9 +47,9 @@ class FourInARowGame {
         }
     }
 
-    removeHoverClass(element, column) {
+    removeHoverClass(column) {
         $(`.cell[data-column="${column}"]`).each(function() {
-            element.removeClass('hover')
+            $(this).removeClass('hover')
         })
     }
 
