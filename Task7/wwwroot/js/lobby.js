@@ -13,10 +13,12 @@ $(document).ready(function() {
 
     hubConnection.on('NewSession', function(session) {
         displaySession(session)
+        let f = checkSessionsExistence($('#sessions-table-body tr'))
     })
 
     hubConnection.on('RemoveSession', function(session) {
         $(`#sessions-table-body #${session.creatorId}`).remove()
+        checkSessionsExistence($('#sessions-table-body tr'))
     })
 
     hubConnection.on('Redirection', function(url, group) {
@@ -58,7 +60,21 @@ $(document).ready(function() {
     }
 
     function displaySessions(sessions) {
-        sessions.forEach(s => displaySession(s))
+        if (checkSessionsExistence(sessions)) {
+            sessions.forEach(s => displaySession(s))
+        }
+    }
+
+    function checkSessionsExistence(sessions) {
+        if (sessions.length == 0) {
+            $('#game-sessions-panel').hide()
+            $('#no-one-session').show()
+            return false
+        } else {
+            $('#game-sessions-panel').show()
+            $('#no-one-session').hide()
+            return true
+        }
     }
 
     function displaySession(session) {
