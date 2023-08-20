@@ -4,7 +4,7 @@ using Task7.Models.Games;
 
 namespace Task7.Hubs
 {
-    public abstract class BaseGameHub<TGame, TMove> : Hub where TGame : BaseGameModel<TMove>, new()
+    public class BaseGameHub<TGame, TMove> : Hub where TGame : BaseGameModel<TMove>, new()
     {
         private static List<TGame> games = new List<TGame>();
 

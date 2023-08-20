@@ -1,4 +1,6 @@
 using Task7.Hubs;
+using Task7.Models.Games;
+using Task7.Models.Moves;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,8 +23,8 @@ app.MapControllerRoute(
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapHub<LobbyHub>("/lobby");
-    endpoints.MapHub<TicTacToeHub>("/tictactoe");
-    endpoints.MapHub<FourInARowHub>("/fourinarow");
+    endpoints.MapHub<BaseGameHub<TicTacToeGame, TicTacToeMove>>("/tictactoe");
+    endpoints.MapHub<BaseGameHub<FourInARowGame, FourInARowMove>>("/fourinarow");
 });
 
 app.Run();
