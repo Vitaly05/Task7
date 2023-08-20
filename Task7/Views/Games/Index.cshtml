@@ -5,12 +5,14 @@
 <div class="uk-heading-medium uk-text-center">Welcome to the games lobby</div>
 
 <div>
-    <input class="uk-input uk-text-center" id="nickname-input" type="text" placeholder="Nickname" />
+    <form id="nickname-form" class="d-flex flex-column align-items-center">
+        <input class="uk-input uk-text-center" id="nickname-input" type="text" placeholder="Nickname" required />
+    </form>
 </div>
 
 <div class="d-flex gap-2 justify-content-between mt-4">
-    <button class="uk-button" uk-toggle="target: #new-game-modal">New game</button>
-    <button class="uk-button" uk-toggle="target: #join-game-modal">Join game</button>
+    <button class="uk-button" id="new-game-button">New game</button>
+    <button class="uk-button" id="join-game-button">Join game</button>
 </div>
 
 <div id="new-game-modal" uk-modal>
@@ -63,6 +65,7 @@
 
 @section Scripts 
 {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/js/lobby.js"></script>
 }
 

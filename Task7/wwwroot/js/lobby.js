@@ -41,10 +41,27 @@ $(document).ready(function() {
     $('#nickname-input').on('change', function() {
         localStorage.setItem('name', $(this).val())
     })
+    
+    $('#nickname-form').validate({ rules: { nicknameInput: 'required'} })
 
+    $('#new-game-button').click(function() {
+        showModal('#new-game-modal')
+    })
+
+    $('#join-game-button').click(function() {
+        showModal('#join-game-modal')
+    })
+    
     hubConnection.start().then(function() {
         hubConnection.invoke('GetAllSessions')
     })
+
+    function showModal(modal) {
+        console.log($('#nickname-form').valid())
+        if ($('#nickname-form').valid()) {
+            UIkit.modal(modal).show()
+        }
+    }
     
     function startNewSession(game) {
         hubConnection.invoke('StartNewSession', createSession(game)).then(function() {

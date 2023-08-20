@@ -2,6 +2,13 @@
     box-sizing: border-box;
 }
 
+input.error {
+    border-color: red;
+}
+label.error {
+    color: red;
+}
+
 #game-sessions-panel {
     height: 50vh;
 }
