@@ -2,7 +2,17 @@
     ViewData["Title"] = "Tic Tac Toe";
 }
 
-<h2>Tic Tac Toe</h2>
+<div class="d-flex gap-2">
+    <h2>Tic Tac Toe</h2>
+    <div class="uk-inline">
+        <span uk-icon="question" class="uk-icon-button uk-button-primary"></span>
+        <div class="uk-card uk-card-body uk-card-default" uk-drop="pos: bottom-right; animation: reveal-top; animate-out: true">
+            You are X, your oppenent O. Players take turns putting their marks in empty squares. 
+            The first player to get 3 of her marks in a row (up, down, across, or diagonally) is 
+            the winner. When all 9 squares are full, the game ends in a draw.
+        </div>
+    </div>
+</div>
 
 <div id="board" class="m-4">
     <div data-row="0" data-column="0" class="cell"></div>

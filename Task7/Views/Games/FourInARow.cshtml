@@ -2,7 +2,17 @@
     ViewData["Title"] = "Four In A Row";
 }
 
-<h2>Four In A Row</h2>
+<div class="d-flex gap-2">
+    <h2>Four In A Row</h2>
+    <div class="uk-inline">
+        <span uk-icon="question" class="uk-icon-button uk-button-primary"></span>
+        <div class="uk-card uk-card-body uk-card-default" uk-drop="pos: bottom-right; animation: reveal-top; animate-out: true">
+            Each turn each player puts a piece of his color inside a column and it will fall until it 
+            reaches the lowest available spot. The one who can put 4 pieces of the same color in a 
+            row horizontally, vertically or diagonally wins.
+        </div>
+    </div>
+</div>
 
 <div id="four-in-a-row-board" class="m-0 m-sm-4 p-2 p-sm-4 gap-2 gap-sm-4">
     <div data-row="0" data-column="0" class="cell empty"></div>
